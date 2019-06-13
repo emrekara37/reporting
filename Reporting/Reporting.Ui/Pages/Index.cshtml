@@ -1,0 +1,32 @@
+﻿@page
+@using Reporting.Business.Models
+@model IndexModel
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">İş Emri</th>
+                @foreach (var reason in Enum.GetValues(typeof(WaitingReason)).Cast<WaitingReason>())
+                {
+                    <th scope="col">@reason.GetEnumDisplayName()</th>
+                }
+                <th scope="col">Toplam</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reporting in Model.ReportingResults)
+            {
+                <tr>
+                    <td>
+                        <b>@reporting.WorkOrderNo</b>
+                    </td>
+                    @foreach (var items in reporting.Items)
+                    {
+                        <td>@items.Minutes</td>
+                    }
+                    <td>@reporting.TotalMinutes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
